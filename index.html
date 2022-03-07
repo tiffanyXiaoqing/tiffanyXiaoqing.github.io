@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-03 22:03:10 / Modified: 22:06:16" itemprop="dateCreated datePublished" datetime="2022-03-03T22:03:10+08:00">2022-03-03</time>
+              <time title="Created: 2022-03-03 22:03:10" itemprop="dateCreated datePublished" datetime="2022-03-03T22:03:10+08:00">2022-03-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-07 21:40:29" itemprop="dateModified" datetime="2022-03-07T21:40:29+08:00">2022-03-07</time>
+              </span>
 
           
 
@@ -200,6 +206,19 @@
 <li>获取服务实例化方法参数的能力 Params；</li>
 <li>两个与实例化控制相关的方法，控制实例化时机方法 IsDefer、实例化预处理的方法 Boot。</li>
 </ul>
+<h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><ol>
+<li>服务提供者需要有一个凭证，它是一个字符串结构。通过方法Name()来获取凭证字符。</li>
+<li>服务提供者需要有创建服务实例方法的能力，它的返回值是NewInstance。</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Register 在服务容器中注册了一个实例化服务的方法</span></span><br><span class="line">Register(Container) NewInstance</span><br><span class="line"><span class="comment">// NewInstance定义了创建新实例</span></span><br><span class="line"><span class="keyword">type</span> NeweInstance <span class="function"><span class="keyword">func</span><span class="params">(...<span class="keyword">interface</span>&#123;&#125;)</span><span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>我们的服务提供者还需要提供一个获取服务参数的能力<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Params 定义传给NewInstance的参数</span></span><br><span class="line">Params(Container)[]<span class="keyword">interface</span>&#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="示例化过程的控制"><a href="#示例化过程的控制" class="headerlink" title="示例化过程的控制"></a>示例化过程的控制</h2><ol>
+<li>是否在注册的时候就实例化这个服务，需要IsDefer接口。这个接口控制了示例化的时机。</li>
+<li>我们还需要调用准备工作的函数Boot</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>具体功能模块的实现由绑定的服务提供者进行，我们只需要规范服务提供者的能力，就能获得具体的服务实例了。服务提供者的接口有三个基础能力：获取服务凭证、注册服务实例化、获取参数；两个控制能力：控制实例化时机，实例化预处理。</p>
 
       
     </div>
